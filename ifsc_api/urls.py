@@ -1,7 +1,11 @@
 from django.conf.urls import url
+from rest_framework.urlpatterns import format_suffix_patterns
 from . import views
-from django.contrib.auth.views import logout
 
 urlpatterns=[
-    url(r'^ifsc/', views.ifsc_details, name='ifsc'),
+    url(r'^ifsc/(?P<ifsc>\w+)$', views.ifsc_details, name='ifsc'),
+    url(r'^branches/(?P<bank>[-\w]+)/(?P<city>[-\w]+)$', views.details_of_branches, name='branches'),
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)
+
+#format_suffix_patterns for returning multiple type of response eg. JSON
